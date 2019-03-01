@@ -2,8 +2,8 @@
 export default (function () {
     var THEME_DEFAULTS = {
         animated: true,
-        animInterpolateInDuration: .1,
-        animInterpolateOutDuration: .5,
+        animInterpolateInDuration: .05,
+        animInterpolateOutDuration: .15,
         animInterpolateInFunc: function (t) { return t * t * (3 - 2 * t); },
         animInterpolateOutFunc: function (t) { return t * t * (3 - 2 * t); },
 
