@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>cool pie chart</title>
+    <style>
+        canvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -400px;
+            margin-top: -300px;
+        }
+    </style>
+</head>
+
+<body></body>
+<canvas id="pie_canvas" width="800" height="600"></canvas>
+
+<script type="module" src="demo.js">
+    import Charts from './tinychartlib.js'
+
+    var chartData = [
+        { name: "Element 1", value: 10 },
+        { name: "Element 2", value: 20 },
+        { name: "Element 3", value: 20 },
+        { name: "Element 4", value: 20 },
+        { name: "Element 5", value: 60 }
+    ];
+
+    window.pieChart = new Charts.PieChart(chartData, document.getElementById("pie_canvas"));
+
+</script>
+</body>
+
+</html>
