@@ -7,7 +7,8 @@ export default (function () {
         animInterpolateInFunc: function (t) { return t * t * (3 - 2 * t); },
         animInterpolateOutFunc: function (t) { return t * t * (3 - 2 * t); },
 
-        colors: ['#b7d957', '#fac364', '#8cd3ff', '#d998cb', '#f2d249', '#f2d249', '#93b9c6', '#ccc5a8', '#52bacc', '#dbdb46'],
+        colors: ['#83a525', '#cf8607', '#0076bf', '#853173', '#c7a40e', '#426f7e', '#756b44', '#2a7f8e', '#8e8e1c'],
+        colorsHover: ['#b7d957', '#fac364', '#8cd3ff', '#d998cb', '#f2d249', '#93b9c6', '#ccc5a8', '#52bacc', '#dbdb46'],
         textColorOnChart: 'white',
         fontOnChart: 'bold 25px Arial',
         textColor: '#000000',
@@ -52,6 +53,24 @@ export default (function () {
         }
     }
 
+    function lerp(a, b, t) {
+        return a * (1 - t) + b * t;
+    }
+
+    // c1 and c2 must be hex colors starting with a #
+    function lerpHexColor(c1, c2, t) {
+        var r1 = parseInt (c1.substring(1, 3), 16);
+        var g1 = parseInt (c1.substring(3, 5), 16);
+        var b1 = parseInt (c1.substring(5, 7), 16);
+        var r2 = parseInt (c2.substring(1, 3), 16);
+        var g2 = parseInt (c2.substring(3, 5), 16);
+        var b2 = parseInt (c2.substring(5, 7), 16);
+        var r = Math.floor(lerp(r1, r2, t));
+        var g = Math.floor(lerp(g1, g2, t));
+        var b = Math.floor(lerp(b1, b2, t));
+        return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    }
+
     /// Base abstract class for all charts
     class Chart {
         constructor(data, canvas, themeOverrides) {
@@ -82,7 +101,12 @@ export default (function () {
 
         // Get the color of the i-th element
         getColor(i) {
-            return this.thm('colors')[i % this.thm('colors').length];
+            var col1 = this.thm('colors')[i % this.thm('colors').length];
+            if (this.positions[i] < 0.01) {
+                return col1;
+            }
+            var col2 = this.thm('colorsHover')[i % this.thm('colorsHover').length];
+            return lerpHexColor(col1, col2, this.positions[i]);
         }
 
         draw() {
@@ -175,13 +199,13 @@ export default (function () {
                 var fraction = this.data[i].value / dataSum;
                 var endAngle = startAngle + fraction * 2 * Math.PI;
                 var centerAngle = (startAngle + endAngle) / 2;
+                var elementOffset = new v2(0, 0);
 
                 // Sine theorem to calc where the element should start so the spacing between elements is constant
                 var distFromCenter = radius * Math.sin(pieChartBorderAngle) / Math.sin((endAngle - startAngle) / 2);
 
                 // If chart is animated, check if we're hovering the elemnent with the mouse
                 if (this.thm("animated")) {
-                    var elementOffset = new v2(0, 0);
                     var mouseDistFromCenter = v2.sub(this.cursor, center).sqrMagnitude();
                     var pos = this.positions[i];
 
