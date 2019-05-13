@@ -7,8 +7,9 @@ export default (function () {
         animInterpolateInFunc: function (t) { return t * t * (3 - 2 * t); },
         animInterpolateOutFunc: function (t) { return t * t * (3 - 2 * t); },
 
-        colors: ['#83a525', '#cf8607', '#0076bf', '#853173', '#c7a40e', '#426f7e', '#756b44', '#2a7f8e', '#8e8e1c'],
-        colorsHover: ['#b7d957', '#fac364', '#8cd3ff', '#d998cb', '#f2d249', '#93b9c6', '#ccc5a8', '#52bacc', '#dbdb46'],
+        colors: ['#ca2b46', '#b73fa9', '#5c4db9', '#23b39e', '#6ecf4a', '#e8b202'],
+        colorsHover: ['#ea3251', '#d449c4', '#6b59d6', '#29cfb7', '#80f056', '#ffce02'],
+
         textColorOnChart: 'white',
         fontOnChart: 'bold 25px Arial',
         textColor: '#000000',
