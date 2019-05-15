@@ -5,7 +5,7 @@ tiny canvas-based pie chart rendering library
 it draws pie charts. has some neat effects
 
 ## How to use it
-[Demo](https://alexvitkov.github.io/tinychartlib/demo.html)
+[Demo](https://alexvitkov.github.io/piecharts/demo.html)
 ```JavaScript
 var chartData = [
     { name: "Element 1", value: 10 },
